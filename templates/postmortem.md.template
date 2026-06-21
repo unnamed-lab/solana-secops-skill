@@ -1,0 +1,31 @@
+# Post-Mortem — <Protocol> Incident <date>
+Status: <Draft/Published>   Author: <name>   Blameless: yes
+
+## Summary
+<2–3 sentences: what happened, impact, current state.>
+
+## Impact
+- Funds: <amount/assets>   Users affected: <...>   Recovered: <amount>
+- Downtime: <...>
+
+## Timeline (UTC, from the war-room log)
+- <...>
+
+## Root cause
+- Vector: code / key-or-signer / supply-chain / governance / oracle  (map to threat-model.md)
+- On-chain mechanism: <...>
+- Off-chain mechanism: <device/dependency/human path — often the real cause>
+
+## What worked / what didn't
+- Worked: <pause fired in N sec, monitoring paged, ...>
+- Didn't: <no rate limit, signing env not isolated, ...>
+
+## Action items (owned + dated, each mapped to a control)
+- [ ] <add pause switch>            owner:<name> due:<date>  → circuit-breakers.md
+- [ ] <add upgrade timelock>        owner:<name> due:<date>  → authority-hardening.md
+- [ ] <isolate signing env>         owner:<name> due:<date>  → threat-model.md
+- [ ] <add monitoring rule>         owner:<name> due:<date>  → monitoring.md
+
+## Restart record
+- Fix commit: <hash>  Re-audit: <firm/date>  Re-verified: <verify PDA>  Keys rotated: <...>
+- /secops-readiness re-run: <date, result>   Multisig sign-off: <...>

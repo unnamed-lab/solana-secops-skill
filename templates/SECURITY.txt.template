@@ -1,0 +1,30 @@
+# security.txt + SECURITY.md skeletons
+# ------------------------------------
+# 1) Embed an on-chain security.txt in your program with neodyme-labs/solana-security-txt.
+#    Add to Cargo.toml:  solana-security-txt = "<latest>"
+#    Add this macro to your program crate (lib.rs), OUTSIDE any instruction:
+
+security_txt! {
+    name: "<Your Protocol>",
+    project_url: "https://<yourprotocol>.xyz",
+    contacts: "email:security@<yourprotocol>.xyz,link:https://<yourprotocol>.xyz/security,telegram:<handle>",
+    policy: "https://github.com/<org>/<repo>/blob/main/SECURITY.md",
+    preferred_languages: "en",
+    source_code: "https://github.com/<org>/<repo>",
+    source_release: "v1.0.0",
+    auditors: "<Auditor 1>, <Auditor 2>"
+}
+
+# 2) Commit a SECURITY.md policy at the repo root. Minimal viable policy:
+#
+# ## Reporting a Vulnerability
+# Email security@<yourprotocol>.xyz (PGP: <link>). Do not open a public issue.
+# We aim to acknowledge within <N> hours.
+#
+# ## Bug Bounty
+# We pay a bounty at our discretion after verifying the bug, up to <10%> of value
+# at risk, capped at $<X>. Paid only if the issue was not disclosed to third parties
+# or exploited before a verified fix. (If you don't run a bounty, say so explicitly.)
+#
+# ## Scope
+# In scope: <program ids>. Out of scope: <front-end-only, third-party deps, etc.>

@@ -1,0 +1,27 @@
+# War Room — <Protocol> Incident <UTC timestamp>
+Severity: <SEV-?>   Incident Commander: <name>
+Roles: Comms=<name>  Forensics=<name>  Ops=<name>
+
+## Status
+ACTIVE / CONTAINED / STABILIZED / RESOLVED
+
+## Timeline (append-only, UTC — log EVERYTHING)
+- HH:MM:SS  detected: <what, how>
+- HH:MM:SS  action: <paused withdrawals via guardian — tx: <sig>>
+- HH:MM:SS  finding: <attacker addr: <addr>, drained <amount> <asset>>
+- HH:MM:SS  escalated: <contacted SEAL 911 / SIRN>
+- HH:MM:SS  comms: <posted holding statement — link>
+
+## Attacker addresses / txns
+- <address>  — <notes>
+- <tx signature> — <notes>
+
+## Containment state
+- [ ] Affected path paused (tx: <sig>)
+- [ ] Front-end down/bannered
+- [ ] Compromised signers removed
+- [ ] Pre-signed txns invalidated (nonces advanced)
+- [ ] Exchanges/bridges notified
+
+## Open questions / next actions
+- <...>

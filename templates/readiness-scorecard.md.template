@@ -1,0 +1,17 @@
+# Day-2 Readiness Scorecard — <Protocol>  (<date>)
+Program: <id>   Cluster: <...>   Reviewer: <name>
+
+| # | Dimension          | Status (PASS/MISSING/N-A) | Evidence / next action |
+|---|--------------------|---------------------------|------------------------|
+| 1 | Verified build     |                           | hashes match? verify PDA? |
+| 2 | Authority hardening |                          | upgrade auth = Squads vault + timelock? mint/freeze? |
+| 3 | Circuit breakers   |                           | pause gate + guardian role + rate limit? |
+| 4 | Monitoring         |                           | webhooks live, alerts page, tested? |
+| 5 | security.txt       |                           | embedded + SECURITY.md policy? |
+| 6 | Incident runbook   |                           | committed, pause cmd + contacts? |
+
+## Launch-readiness decision
+NOT launch-ready if ANY of: no pause switch / single-key upgrade authority / no monitoring / no runbook.
+
+Decision: <READY / NOT READY>
+Biggest remaining risk: <one line>

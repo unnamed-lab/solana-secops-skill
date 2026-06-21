@@ -1,0 +1,41 @@
+# Incident Runbook — <Protocol>
+# Commit this BEFORE mainnet. Fill every <placeholder>. Reviewed: <date>
+
+## Severity
+- SEV-1: funds moving / imminent risk
+- SEV-2: privileged anomaly, no confirmed loss
+- SEV-3: suspicious, no value at risk
+> When unsure SEV-1 vs SEV-2 → treat as SEV-1.
+
+## 1. CONTAIN — the exact commands
+- Guardian pause (fast, single key):
+  `<exact CLI / client call to pause>`
+  Guardian key holder: <name> — reachable 24/7 at <contact>
+- Fine-grained pauses available: <list>
+- If no pause works, next levers: <Squads emergency action> / <advance nonce> / <freeze>
+- Front-end takedown: <how> (owner: <name>)
+
+## 2. CONVENE
+- War-room channel: <link>   Template: templates/war-room.md.template
+- Roles: IC=<name>  Comms=<name>  Forensics=<name>  Ops=<name>
+
+## 3. ESCALATE — contacts (saved in advance)
+- SEAL 911: <link/handle>
+- SIRN / monitoring partner: <contact>
+- Auditor: <firm, contact>     Forensics: <firm, contact>
+- Exchanges/bridges to flag attacker addresses: <contacts/forms>
+
+## 4. KEY FACTS (fill in advance)
+- Program id(s): <...>   Upgrade authority (Squads vault): <...>   Timelock: <...>
+- Multisig signers: <count/threshold>   Vaults/treasuries: <addresses>
+- Privileged nonce accounts: <addresses>   Oracles: <addresses>
+
+## 5. COMMUNICATE
+- Holding statement owner: <name>. No cause/amounts/safety promises until known.
+
+## 6. RESTART
+- Do NOT unpause until vector confirmed closed + full multisig agrees.
+- Fix → re-audit → re-verify → rotate keys → re-run /secops-readiness → unpause.
+
+## Drill log
+- Last tabletop drill: <date> — notes: <...>
