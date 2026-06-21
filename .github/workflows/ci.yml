@@ -1,0 +1,17 @@
+name: ci
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint shell scripts
+        run: shellcheck install.sh install-custom.sh validate.sh tests/run_all.sh
+
+      - name: Validate structure, frontmatter, links
+        run: bash validate.sh
+
+      - name: Full suite (install + idempotency + project-local)
+        run: bash tests/run_all.sh

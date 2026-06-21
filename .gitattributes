@@ -1,0 +1,5 @@
+# Keep shell scripts LF so they run on Linux/WSL/CI regardless of checkout OS.
+*.sh text eol=lf
+
+# Normalize text files; let Git pick line endings on checkout for the rest.
+* text=auto
