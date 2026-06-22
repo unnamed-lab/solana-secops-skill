@@ -26,7 +26,7 @@ REQUIRED=(
   "templates/readiness-scorecard.md.template"
 )
 for f in "${REQUIRED[@]}"; do
-  [ -f "$ROOT/$f" ] && ok "exists: $f" || bad "missing: $f"
+  if [ -f "$ROOT/$f" ]; then ok "exists: $f"; else bad "missing: $f"; fi
 done
 
 # --- 2. Frontmatter checks ---
@@ -34,18 +34,18 @@ echo "[frontmatter]"
 fm_has() { # file, key
   awk 'NR==1 && $0=="---"{f=1;next} f && /^---$/{exit} f && $0 ~ "^"k":"{print "1";exit}' k="$2" "$1" 2>/dev/null
 }
-[ "$(fm_has "$ROOT/skill/SKILL.md" name)" = "1" ] && ok "SKILL.md has name" || bad "SKILL.md missing name"
-[ "$(fm_has "$ROOT/skill/SKILL.md" description)" = "1" ] && ok "SKILL.md has description" || bad "SKILL.md missing description"
+if [ "$(fm_has "$ROOT/skill/SKILL.md" name)" = "1" ]; then ok "SKILL.md has name"; else bad "SKILL.md missing name"; fi
+if [ "$(fm_has "$ROOT/skill/SKILL.md" description)" = "1" ]; then ok "SKILL.md has description"; else bad "SKILL.md missing description"; fi
 for a in "$ROOT"/agents/*.md; do
   n=$(basename "$a")
-  [ "$(fm_has "$a" name)" = "1" ] && ok "$n has name" || bad "$n missing name"
-  [ "$(fm_has "$a" model)" = "1" ] && ok "$n has model" || bad "$n missing model"
+  if [ "$(fm_has "$a" name)" = "1" ]; then ok "$n has name"; else bad "$n missing name"; fi
+  if [ "$(fm_has "$a" model)" = "1" ]; then ok "$n has model"; else bad "$n missing model"; fi
 done
 for c in "$ROOT"/commands/*.md; do
   n=$(basename "$c")
-  [ "$(fm_has "$c" description)" = "1" ] && ok "$n has description" || bad "$n missing description"
+  if [ "$(fm_has "$c" description)" = "1" ]; then ok "$n has description"; else bad "$n missing description"; fi
 done
-[ "$(fm_has "$ROOT/rules/pausable-program.md" globs)" = "1" ] && ok "rule has globs" || bad "rule missing globs"
+if [ "$(fm_has "$ROOT/rules/pausable-program.md" globs)" = "1" ]; then ok "rule has globs"; else bad "rule missing globs"; fi
 
 # --- 3. Relative-link integrity (skip http/https/mailto/anchors) ---
 echo "[links]"
@@ -59,7 +59,7 @@ while IFS= read -r mdfile; do
     target="${link%%#*}"        # strip any #anchor
     [ -z "$target" ] && continue
     if [ ! -e "$dir/$target" ]; then
-      echo "  FAIL: broken link in ${mdfile#$ROOT/} -> $link"
+      echo "  FAIL: broken link in ${mdfile#"$ROOT"/} -> $link"
     fi
   done
 done < <(find "$ROOT/skill" "$ROOT/agents" "$ROOT/commands" "$ROOT/rules" -name "*.md")
