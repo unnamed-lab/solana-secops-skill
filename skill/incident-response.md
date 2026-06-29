@@ -19,7 +19,7 @@ When unsure between SEV-1 and SEV-2: **treat as SEV-1.** A precautionary pause c
 1. **Pause.** Fire the guardian pause for the affected path (see `circuit-breakers.md`; the `/incident` command surfaces the exact command). If you have no pause switch, go straight to the harshest lever you do have (e.g. multisig-yank an authority, advance a durable nonce, pull liquidity) — and write a post-mortem action item to add a pause switch.
 2. **Halt the front-end / deposits.** Take down or banner the dApp to stop new user funds flowing in. Public notice: "investigating unusual activity; do not deposit."
 3. **Freeze what you can.** If you hold a freeze authority relevant to the exploited asset, use it. Remove compromised signers from the multisig if signer compromise is suspected.
-4. **Invalidate pre-signed transactions.** If a durable-nonce/pre-signed-txn vector is suspected, advance/close the relevant nonce accounts.
+4. **Invalidate pre-signed transactions.** If a durable-nonce/pre-signed-txn vector is suspected, advance/close the relevant nonce accounts immediately using `solana advance-nonce-account <NONCE_ACCOUNT> --keypair <AUTHORITY>` (see CLI details in [authority-hardening.md](authority-hardening.md)).
 
 Do these in parallel if you have the people. The order above is by leverage if you're solo.
 

@@ -36,7 +36,9 @@ Plus **2 agents** (`incident-commander` for live incidents, `secops-engineer` fo
 
 ## Install
 
-### Standard (personal, all projects)
+### Unix / macOS (Bash)
+
+#### Standard (personal, all projects)
 ```bash
 git clone https://github.com/unnamed-lab/solana-secops-skill
 cd solana-secops-skill
@@ -44,10 +46,25 @@ cd solana-secops-skill
 ```
 Installs to `~/.claude/`: skill -> `skills/solana-secops/`, agents, commands, rules.
 
-### Project-local
+#### Project-local
 ```bash
 ./install-custom.sh --project    # installs to ./.claude in the current repo
 # or:  ./install-custom.sh --path /path/to/project
+```
+
+### Windows (PowerShell)
+
+#### Standard (personal, all projects)
+```powershell
+git clone https://github.com/unnamed-lab/solana-secops-skill
+cd solana-secops-skill
+powershell -File .\install.ps1
+```
+
+#### Project-local
+```powershell
+powershell -File .\install.ps1 -Project
+# or: powershell -File .\install.ps1 -Path C:\path\to\project
 ```
 
 ### As part of the Solana AI Kit

@@ -51,9 +51,13 @@ Emit a rules file the user's handler evaluates per incoming transaction. Tune th
 }
 ```
 
-## Step 3: Handler skeleton (optional — Cloudflare Worker fits; see kit's cloudflare skill)
+## Step 3: Handler skeleton (Cloudflare Worker template)
 
-A minimal handler: receive webhook → evaluate rules → fan out to the alert sink AND the war-room channel → (optionally, for SEV-1) call the guardian pause. Keep the auto-pause behind a feature flag until thresholds are trustworthy.
+A complete, production-ready Cloudflare Worker is provided in [monitoring-worker.js](../templates/monitoring-worker.js). It includes:
+- Verification of the `X-Helius-Signature` HMAC-SHA256 header to prevent spoofing/DoS.
+- Evaluation of rules against enhanced transaction details (vault outflows, administrative actions).
+- Alerts dispatched to Slack or Telegram.
+Keep the auto-pause function behind a feature flag until thresholds are thoroughly tested and verified.
 
 ## Step 4: Free ecosystem tools
 

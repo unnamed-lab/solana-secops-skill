@@ -119,6 +119,7 @@ CLI surfaces here change (e.g. `solana-verify` deprecated `--remote` in favor of
 - [war-room.md.template](../templates/war-room.md.template) — live incident log
 - [postmortem.md.template](../templates/postmortem.md.template) — blameless post-incident report
 - [readiness-scorecard.md.template](../templates/readiness-scorecard.md.template) — Day-2 readiness scorecard
+- [monitoring-worker.js](../templates/monitoring-worker.js) — Cloudflare Worker Helius webhook alert handler
 
 ---
 

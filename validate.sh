@@ -14,7 +14,7 @@ echo "== solana-secops-skill validation =="
 # --- 1. Required files ---
 echo "[structure]"
 REQUIRED=(
-  "README.md" "CLAUDE.md" "LICENSE" "install.sh" "install-custom.sh"
+  "README.md" "CLAUDE.md" "LICENSE" "install.sh" "install-custom.sh" "install.ps1"
   "skill/SKILL.md" "skill/threat-model.md" "skill/verified-deploy.md"
   "skill/authority-hardening.md" "skill/circuit-breakers.md" "skill/monitoring.md"
   "skill/incident-response.md" "skill/recovery-postmortem.md" "skill/resources.md"
@@ -23,7 +23,8 @@ REQUIRED=(
   "rules/pausable-program.md"
   "templates/SECURITY.txt.template" "templates/incident-runbook.md.template"
   "templates/war-room.md.template" "templates/postmortem.md.template"
-  "templates/readiness-scorecard.md.template"
+  "templates/readiness-scorecard.md.template" "templates/monitoring-worker.js"
+  "tests/run_all.ps1"
 )
 for f in "${REQUIRED[@]}"; do
   if [ -f "$ROOT/$f" ]; then ok "exists: $f"; else bad "missing: $f"; fi
