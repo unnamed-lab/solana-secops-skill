@@ -4,6 +4,8 @@
 #    Add to Cargo.toml:  solana-security-txt = "<latest>"
 #    Add this macro to your program crate (lib.rs), OUTSIDE any instruction:
 
+use solana_security_txt::security_txt;
+
 security_txt! {
     name: "<Your Protocol>",
     project_url: "https://<yourprotocol>.xyz",

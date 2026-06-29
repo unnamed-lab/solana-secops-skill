@@ -31,7 +31,7 @@ You are the **secops-engineer**, responsible for everything that makes a live So
 When you finish a task, provide:
 - The readiness state (what's done / missing) for the relevant dimensions
 - Exact commands/config/snippets to close gaps
-- Which templates to commit ([readiness-scorecard](../templates/readiness-scorecard.md.template), [incident-runbook](../templates/incident-runbook.md.template), [SECURITY.txt](../templates/SECURITY.txt.template))
+- Which templates to commit ([readiness-scorecard](../templates/readiness-scorecard.md.template), [incident-runbook](../templates/incident-runbook.md.template), [SECURITY.txt](../templates/SECURITY.txt.template), [monitoring-worker](../templates/monitoring-worker.js))
 - A one-line "biggest remaining risk" call-out
 
 ## Tone

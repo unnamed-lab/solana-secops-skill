@@ -29,6 +29,8 @@ See [/setup-monitoring](../commands/setup-monitoring.md) to scaffold a webhook +
 
 Minimal alerting loop (shape, not a product):
 1. Helius webhook → your handler (a Cloudflare Worker fits; see the kit's `cloudflare` skill).
+   > [!IMPORTANT]
+   > **Webhook Signature Verification**: You MUST verify the `X-Helius-Signature` header (HMAC-SHA256) on your webhook endpoint using your Helius Webhook Secret. Without verification, anyone can trigger spoofed alerts or DOS your protocol via the auto-pause handler. See the complete, secure template in [monitoring-worker.js](../templates/monitoring-worker.js).
 2. Handler evaluates rules → on trip, fan out to PagerDuty/Telegram/Slack **and** post into the war-room channel.
 3. The same handler can be authorized to call the guardian **pause** for the highest-severity rules (auto-circuit-breaker) — gate this carefully; a false positive that pauses the protocol is a DoS you did to yourself.
 

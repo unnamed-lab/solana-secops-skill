@@ -60,11 +60,8 @@ pub fn set_pause(ctx: Context<SetPause>, paused: bool) -> Result<()> {
 }
 
 // Only admin (the multisig) can clear withdrawal pause. Slow, deliberate path.
+// Handled declaratively in the Accounts struct using has_one.
 pub fn set_withdrawals_paused(ctx: Context<AdminOnly>, paused: bool) -> Result<()> {
-    require!(
-        ctx.accounts.authority.key() == ctx.accounts.config.admin,
-        SecError::Unauthorized
-    );
     ctx.accounts.config.withdrawals_paused = paused;
     Ok(())
 }
@@ -79,11 +76,44 @@ pub fn withdraw(ctx: Context<Withdraw>, amount: u64) -> Result<()> {
     Ok(())
 }
 
+#[derive(Accounts)]
+pub struct SetPause<'info> {
+    #[account(
+        mut,
+        seeds = [b"config"],
+        bump = config.bump
+    )]
+    pub config: Account<'info, ProtocolConfig>,
+    pub authority: Signer<'info>, // Can be guardian OR admin (body checks which)
+}
+
+#[derive(Accounts)]
+pub struct AdminOnly<'info> {
+    #[account(
+        mut,
+        seeds = [b"config"],
+        bump = config.bump,
+        has_one = admin @ SecError::Unauthorized
+    )]
+    pub config: Account<'info, ProtocolConfig>,
+    pub admin: Signer<'info>, // MUST be the admin (Squads vault)
+}
+
+#[derive(Accounts)]
+pub struct Withdraw<'info> {
+    #[account(
+        seeds = [b"config"],
+        bump = config.bump
+    )]
+    pub config: Account<'info, ProtocolConfig>,
+    // ... other vault/token/user accounts ...
+}
+
 #[event]
 pub struct PauseToggled { pub paused: bool, pub by: Pubkey }
 ```
 
-The matching `#[derive(Accounts)]` contexts load `ProtocolConfig` (typically a PDA) and a `Signer` `authority`; keep `admin` pointed at the Squads vault and `guardian` at the low-privilege hot key.
+The matching `#[derive(Accounts)]` contexts (shown above) ensure that the config PDA is securely validated via seeds and bump, preventing arbitrary config account injection. The unpause/config paths use `has_one = admin` to guarantee that only the multisig vault can perform high-privilege operations.
 
 ## Rate limits & withdrawal caps
 

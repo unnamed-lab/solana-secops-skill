@@ -28,7 +28,7 @@ echo "    <your-cli> pause --program $PROGRAM_ID --authority \$GUARDIAN_KEYPAIR 
 echo ""
 echo ">>> If NO pause switch exists, use the harshest lever you have:"
 echo "    - Squads: propose+execute emergency authority change / param halt"
-echo "    - Advance/close privileged durable-nonce accounts (invalidates pre-signed txns)"
+echo "    - Advance/close privileged durable-nonce accounts: solana advance-nonce-account <NONCE_ACCOUNT_ADDRESS> --keypair <AUTHORITY>"
 echo "    - Pull liquidity / freeze (if you hold freeze authority)"
 echo ""
 echo ">>> Take down or banner the front-end. Public notice: investigating, DO NOT deposit."

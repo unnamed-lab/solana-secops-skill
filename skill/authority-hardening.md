@@ -30,6 +30,20 @@ solana program set-upgrade-authority <PROGRAM_ID> \
 
 For CI-driven upgrades through the multisig, use the official action `Squads-Protocol/squads-v4-program-upgrade` (initializes the upgrade as a multisig proposal from your pipeline) instead of handing a deploy key to a human.
 
+Example GitHub Actions step:
+```yaml
+- name: Propose Squads Upgrade
+  uses: Squads-Protocol/squads-v4-program-upgrade@v1
+  with:
+    network: 'mainnet'
+    rpc-url: ${{ secrets.SOLANA_RPC_URL }}
+    multisig-account: 'SquadsAccountAddressHere'
+    vault-index: 0
+    program-id: 'YourProgramIdHere'
+    buffer-account: 'YourCompiledBufferAddressHere'
+    proposer-keypair: ${{ secrets.SQUADS_PROPOSER_KEYPAIR }}
+```
+
 ## 2. Add a timelock
 
 A timelock inserts a delay between proposing a privileged action and executing it. This is the single most important governance control: it turns a silent malicious upgrade into a **visible, vetoable** event, and it's what monitoring watches for.
@@ -55,6 +69,16 @@ Durable nonces enable valid-forever pre-signed transactions — the Drift execut
 - Inventory every nonce account tied to a privileged signer.
 - Monitor them (see `monitoring.md`); an unexplained advance or a pre-signed txn against one is a red flag.
 - Advancing/closing a nonce invalidates anything pre-signed against it — a containment lever during an incident.
+
+**Operations CLI commands**:
+- **Advance a nonce manually** (forces the nonce value to rotate, instantly invalidating all outstanding pre-signed transactions):
+  ```bash
+  solana advance-nonce-account <NONCE_ACCOUNT_ADDRESS> --keypair <NONCE_AUTHORITY_KEYPAIR>
+  ```
+- **Reclaim / close a nonce account** (withdraws rent lamports, deleting the account and invalidating all pre-signed transactions):
+  ```bash
+  solana withdraw-from-nonce-account <NONCE_ACCOUNT_ADDRESS> <RECIPIENT_ADDRESS> <LAMPORTS> --keypair <NONCE_AUTHORITY_KEYPAIR>
+  ```
 
 ## 6. The immutability decision
 
